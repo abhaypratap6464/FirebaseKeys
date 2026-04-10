@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "223074928432",
+    "project_id": "fir-keys-6a9cf",
+    "storage_bucket": "fir-keys-6a9cf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223074928432:android:7e20b774585775757a2af5",
+        "android_client_info": {
+          "package_name": "com.abhay.firebasekeys"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOWcltg7t9eWNY633d47YWq84ttex9UBk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

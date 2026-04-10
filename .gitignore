@@ -1,16 +1,45 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+# Gradle
+.gradle/
+build/
 local.properties
-google-services.json
+
+# IDE - Android Studio / IntelliJ
+.idea/
+*.iml
+.idea/workspace.xml
+.idea/libraries/
+.idea/modules.xml
+.idea/navEditor.xml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Keystore (don't commit signing keys)
+*.jks
+*.keystore
+
+# Google Services (if contains sensitive keys)
+# google-services.json
+
+# Native
+*.so
+*.o
+obj/
+
+# Logs
+*.log
+
+# APK / AAB / Bundle
+*.apk
+*.aab
+*.ap_
+
+# Kotlin
+*.kotlin_module
+
+# Misc
+captures/
+.externalNativeBuild/
+.cxx/
+output.json

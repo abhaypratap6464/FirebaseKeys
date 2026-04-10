@@ -6,16 +6,34 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -63,12 +81,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun FirebaseKeysDemoScreen(modifier: Modifier = Modifier) {
-    val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
-    // Read the exposed keys directly from strings.xml — just like an attacker would after decompiling
-    val apiKey = context.getString(R.string.google_maps_api_key)
-    val appId = context.getString(R.string.firebase_project_id)
+    // Keys are loaded from the native library (libkeys.so), not from resources
+    val apiKey = NativeKeys.getGoogleApiKey()
+    val appId = NativeKeys.getFirebaseProjectId()
 
     var firestoreResult by remember { mutableStateOf("Not tested yet") }
     var isLoading by remember { mutableStateOf(false) }
@@ -86,22 +103,22 @@ fun FirebaseKeysDemoScreen(modifier: Modifier = Modifier) {
             fontWeight = FontWeight.Bold
         )
 
-        // --- INSECURE SECTION ---
+        // --- SECURE SECTION (NDK) ---
         SectionCard(
-            title = "INSECURE: Keys in strings.xml",
-            borderColor = Color(0xFFD32F2F),
-            backgroundColor = Color(0xFFFFEBEE)
+            title = "SECURE: Keys loaded from NDK (libkeys.so)",
+            borderColor = Color(0xFF2E7D32),
+            backgroundColor = Color(0xFFE8F5E9)
         ) {
             Text(
-                text = "These values are read from res/values/strings.xml\n" +
-                        "Anyone can extract them by running:\n" +
-                        "  apktool d yourapp.apk",
+                text = "Keys are XOR-obfuscated in keys.cpp and compiled into\n" +
+                        "libkeys.so. No plaintext appears in strings.xml or dex.\n" +
+                        "apktool / jadx yield nothing useful.",
                 fontSize = 13.sp,
-                color = Color(0xFF8B0000)
+                color = Color(0xFF1B5E20)
             )
             Spacer(modifier = Modifier.height(8.dp))
             KeyRow("google_api_key", apiKey)
-            KeyRow("google_app_id", appId)
+            KeyRow("firebase_project_id", appId)
         }
 
         // --- ATTACK DEMO SECTION ---
