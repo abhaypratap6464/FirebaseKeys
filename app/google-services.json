@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "223074928432",
-    "project_id": "fir-keys-6a9cf",
-    "storage_bucket": "fir-keys-6a9cf.firebasestorage.app"
+    "project_number": "413996980906",
+    "project_id": "ua-shop-45a0b",
+    "storage_bucket": "ua-shop-45a0b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:223074928432:android:7e20b774585775757a2af5",
+        "mobilesdk_app_id": "1:413996980906:android:7dcf70b91dd6bfd1",
         "android_client_info": {
           "package_name": "com.abhay.firebasekeys"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAOWcltg7t9eWNY633d47YWq84ttex9UBk"
+          "current_key": "AIzaSyDODukeJCkxFLLDBfgG1M7fr9SnAd2IzqI"
         }
       ],
       "services": {

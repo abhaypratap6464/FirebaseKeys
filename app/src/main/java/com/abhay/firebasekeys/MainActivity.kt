@@ -1,9 +1,11 @@
 package com.abhay.firebasekeys
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import io.branch.referral.Branch
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -64,6 +66,8 @@ class MainActivity : ComponentActivity() {
                                 icon = {}, label = { Text("Firebase") })
                             NavigationBarItem(selected = selectedTab == 3, onClick = { selectedTab = 3 },
                                 icon = {}, label = { Text("Database") })
+                            NavigationBarItem(selected = selectedTab == 4, onClick = { selectedTab = 4 },
+                                icon = {}, label = { Text("Branch") })
                         }
                     }
                 ) { innerPadding ->
@@ -72,10 +76,47 @@ class MainActivity : ComponentActivity() {
                         1 -> MapScreen(modifier = Modifier.padding(innerPadding))
                         2 -> FirebaseAppScreen(modifier = Modifier.padding(innerPadding))
                         3 -> DatabaseScreen(modifier = Modifier.padding(innerPadding))
+                        4 -> BranchScreen(modifier = Modifier.padding(innerPadding))
                     }
                 }
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Branch.sessionBuilder(this)
+            .withCallback { referringParams, error ->
+                if (error != null) {
+                    DeepLinkState.lastError  = error.message
+                    DeepLinkState.lastParams = null
+                } else {
+                    DeepLinkState.lastError  = null
+                    DeepLinkState.lastParams = runCatching {
+                        referringParams?.toString(2)
+                    }.getOrNull()
+                }
+            }
+            .withData(if (intent?.action == Intent.ACTION_VIEW) intent.data else null)
+            .init()
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        this.intent = intent
+        Branch.sessionBuilder(this)
+            .withCallback { referringParams, error ->
+                if (error != null) {
+                    DeepLinkState.lastError  = error.message
+                    DeepLinkState.lastParams = null
+                } else {
+                    DeepLinkState.lastError  = null
+                    DeepLinkState.lastParams = runCatching {
+                        referringParams?.toString(2)
+                    }.getOrNull()
+                }
+            }
+            .reInit()
     }
 }
 

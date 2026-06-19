@@ -18,4 +18,5 @@ object NativeKeys {
     external fun getFirebaseDatabaseUrl(): String
     external fun getFirebaseAppId(): String
     external fun getFirebaseStorageBucket(): String
+    external fun getBranchKey(): String
 }

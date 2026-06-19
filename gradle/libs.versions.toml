@@ -11,6 +11,7 @@ composeBom = "2024.09.00"
 okhttp = "4.12.0"
 firebase-bom = "33.7.0"
 maps-compose = "4.4.1"
+branch = "5.+"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,6 +35,7 @@ firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore
 firebase-database = { group = "com.google.firebase", name = "firebase-database-ktx" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
 maps-compose = { group = "com.google.maps.android", name = "maps-compose", version.ref = "maps-compose" }
+branch-sdk = { group = "io.branch.sdk.android", name = "library", version.ref = "branch" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
